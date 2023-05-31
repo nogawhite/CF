@@ -201,7 +201,7 @@ void Test_CF_ValidateConfigTable_FailBecauseTableTicksPerSecondIs0(void)
     result = CF_ValidateConfigTable(arg_table);
 
     /* Assert */
-    UtAssert_INT32_EQ(result, -1);
+    UtAssert_INT32_EQ(result, CFE_STATUS_VALIDATION_FAILURE);
 }
 
 void Test_CF_ValidateConfigTable_FailBecauseCalcBytesPerWakeupIs0(void)
@@ -217,7 +217,7 @@ void Test_CF_ValidateConfigTable_FailBecauseCalcBytesPerWakeupIs0(void)
     result = CF_ValidateConfigTable(arg_table);
 
     /* Assert */
-    UtAssert_INT32_EQ(result, -2);
+    UtAssert_INT32_EQ(result, CFE_STATUS_VALIDATION_FAILURE);
 }
 
 void Test_CF_ValidateConfigTable_FailBecauseCalcBytesPerWakeupIsNot1024ByteAligned(void)
@@ -236,7 +236,7 @@ void Test_CF_ValidateConfigTable_FailBecauseCalcBytesPerWakeupIsNot1024ByteAlign
     result = CF_ValidateConfigTable(arg_table);
 
     /* Assert */
-    UtAssert_INT32_EQ(result, -2);
+    UtAssert_INT32_EQ(result, CFE_STATUS_VALIDATION_FAILURE);
 }
 
 void Test_CF_ValidateConfigTable_FailBecauseOutgoingFileChunkSmallerThanDataArray(void)
@@ -254,7 +254,7 @@ void Test_CF_ValidateConfigTable_FailBecauseOutgoingFileChunkSmallerThanDataArra
     result = CF_ValidateConfigTable(arg_table);
 
     /* Assert */
-    UtAssert_INT32_EQ(result, -3);
+    UtAssert_INT32_EQ(result, CFE_STATUS_VALIDATION_FAILURE);
 }
 
 void Test_CF_ValidateConfigTable_Success(void)
@@ -575,7 +575,7 @@ void Test_CF_ProcessMsg_UnrecognizedCommandEnterDefaultPath(void)
     CF_ProcessMsg(arg_msg);
 
     /* Assert */
-    UtAssert_UINT32_EQ(CF_AppData.hk.counters.err, 1);
+    UtAssert_UINT32_EQ(CF_AppData.HkPacket.CommandErrorCounter, 1);
     UtAssert_STUB_COUNT(CFE_EVS_SendEvent, 1);
     UT_CF_AssertEventID(CF_EID_ERR_INIT_CMD_LENGTH);
 }
@@ -689,7 +689,7 @@ void Test_CF_AppMain_RunLoopCallTo_CFE_SB_ReceiveBuffer_Returns_CFE_SUCCESS_AndV
     /* Assert for CF_Init call and CF_ProcessMsg */
     UtAssert_STUB_COUNT(CFE_EVS_SendEvent, 2);
     /* Assert for CF_ProcessMsg */
-    UtAssert_UINT32_EQ(CF_AppData.hk.counters.err, 1);
+    UtAssert_UINT32_EQ(CF_AppData.HkPacket.CommandErrorCounter, 1);
 }
 
 /*******************************************************************************

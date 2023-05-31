@@ -33,11 +33,7 @@
  */
 typedef struct CF_PollDir
 {
-    uint32 interval_sec; /**<
-                          * \brief number of seconds to wait before trying a new directory.
-                          *
-                          * Must be >0 or slot is inactive.
-                          */
+    uint32 interval_sec; /**< \brief number of seconds to wait before trying a new directory */
 
     uint8           priority;   /**< \brief priority to use when placing transactions on the pending queue */
     CF_CFDP_Class_t cfdp_class; /**< \brief the CFDP class to send */
@@ -90,8 +86,9 @@ typedef struct CF_ConfigTable
 
     CF_ChannelConfig_t chan[CF_NUM_CHANNELS]; /**< \brief Channel configuration */
 
-    uint16 outgoing_file_chunk_size;      /**< maximum size of outgoing file data PDUs */
-    char   tmp_dir[CF_FILENAME_MAX_PATH]; /**< directory to put temp files */
+    uint16 outgoing_file_chunk_size;    /**< maximum size of outgoing file data PDUs - must be
+                                         *   smaller than file data character array */
+    char tmp_dir[CF_FILENAME_MAX_PATH]; /**< directory to put temp files */
 } CF_ConfigTable_t;
 
 #endif /* !CF_TBLDEFS_H */
